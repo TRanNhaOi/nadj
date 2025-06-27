@@ -8,7 +8,7 @@ from pytube import Playlist, YouTube
 import time
 
 # ========== Page Setup ==========
-st.set_page_config(page_title="🎵 Trình phát Playlist YouTube PRO+", layout="centered")
+st.set_page_config(page_title="🎵 Trình phát Playlist YouTube PRO+", layout="centered", initial_sidebar_state="collapsed")
 
 # ========== Auto play meme intro ==========
 st.markdown("""
@@ -141,8 +141,8 @@ if url:
 
     st.markdown("### ▶️ Trình phát nâng cao")
 
-    html = f"""
-    <div id='player'></div>
+    html = """
+    <div id='player' style='width: 100%; height: auto;'></div>
     <div style='margin-top:10px'>
         <button onclick='player.playVideo()'>▶️ Play</button>
         <button onclick='player.pauseVideo()'>⏸ Pause</button>
@@ -163,7 +163,7 @@ if url:
             width: "0",
             playerVars: {
                 listType: "playlist",
-                list: '""" + pl_id + """',
+                list: '{ID}',
                 autoplay: 1,
                 loop: 1
             },
@@ -178,7 +178,7 @@ if url:
     }
     </script>
     """
-    st.components.v1.html(html, height=150)
+    st.components.v1.html(html.replace("{ID}", pl_id), height=180)
 
     st.markdown("### 🔗 Mã QR chia sẻ playlist")
     share_url = f"https://www.youtube.com/playlist?list={pl_id}"
@@ -187,6 +187,10 @@ if url:
     qr_img.save(buffer, format="PNG")
     img_b64 = base64.b64encode(buffer.getvalue()).decode()
     st.image(f"data:image/png;base64,{img_b64}", caption="Quét để mở playlist", width=200)
+
+    st.markdown("""
+        <button onclick="navigator.clipboard.writeText('{}')" style="margin-top:10px;padding:6px 12px;font-size:16px">📋 Sao chép link</button>
+    """.format(share_url), unsafe_allow_html=True)
 
 else:
     st.info("⏳ Nhập link playlist để bắt đầu phát và xem thông tin.")
