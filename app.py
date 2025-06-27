@@ -142,33 +142,33 @@ if url:
     st.markdown("### ▶️ Trình phát nâng cao")
 
     html = f"""
-    <div id=\"player\"></div>
-    <div style=\"margin-top:10px\">
-        <button onclick=\"player.playVideo()\">▶️ Play</button>
-        <button onclick=\"player.pauseVideo()\">⏸ Pause</button>
-        <button onclick=\"player.setShuffle(true); player.nextVideo()\">🔀 Shuffle</button>
-        <input type=\"range\" min=\"0\" max=\"100\" value=\"50\" oninput=\"player.setVolume(this.value)\">
+    <div id='player'></div>
+    <div style='margin-top:10px'>
+        <button onclick='player.playVideo()'>▶️ Play</button>
+        <button onclick='player.pauseVideo()'>⏸ Pause</button>
+        <button onclick='player.setShuffle(true); player.nextVideo()'>🔀 Shuffle</button>
+        <input type='range' min='0' max='100' value='50' oninput='player.setVolume(this.value)'>
         <label>Âm lượng</label>
     </div>
 
     <script>
-    var tag = document.createElement('script');
-    tag.src = \"https://www.youtube.com/iframe_api\";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
+    var tag = document.createElement("script");
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName("script")[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     var player;
     function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-            height: '0',
-            width: '0',
+        player = new YT.Player("player", {
+            height: "0",
+            width: "0",
             playerVars: {
-                listType: 'playlist',
+                listType: "playlist",
                 list: '""" + pl_id + """',
                 autoplay: 1,
                 loop: 1
             },
             events: {
-                'onReady': onPlayerReady
+                onReady: onPlayerReady
             }
         });
     }
